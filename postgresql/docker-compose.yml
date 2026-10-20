@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PWD}
       POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
     ports:
-      - "5433:5432"
+      - "${DB_PORT:-5432}:5432"
     volumes:
       - ./db-data:/var/lib/postgresql
     command: 
