@@ -20,3 +20,20 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('personal/', include('apps.personal.urls')), # <-- Agrega esta línea si no está
+]
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('personal/', include('apps.personal.urls')),
+    path('dashboard/', include('apps.dashboard.urls')),
+]

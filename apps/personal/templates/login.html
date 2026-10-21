@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión - Sistema de Producción</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Librería para escanear QR con la cámara -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        #qr-reader {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-light d-flex align-items-center justify-content-center vh-100">
+
+    <div class="card shadow p-4" style="width: 100%; max-width: 450px;">
+        <h3 class="text-center mb-4">Acceso de Empleados</h3>
+
+        <!-- Mensajes de Error o Éxito -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Botón para activar la cámara -->
+        <div class="text-center mb-3">
+            <button id="btn-toggle-qr" type="button" class="btn btn-outline-primary w-100">
+                Escanear Código QR con Cámara
+            </button>
+        </div>
+
+        <!-- Contenedor del video de la cámara -->
+        <div id="qr-reader" class="mb-3 rounded border p-2"></div>
+
+        <!-- Formulario de Login -->
+        <form method="POST" id="login-form">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="id_numero_empleado" class="form-label">Número de Empleado / QR</label>
+                <input type="text" name="numero_empleado" id="id_numero_empleado" class="form-control" placeholder="Introduce No. Empleado" required autofocus>
+            </div>
+
+            <div class="mb-3">
+                <label for="id_pin" class="form-label">PIN de Seguridad</label>
+                <input type="password" name="pin" id="id_pin" class="form-control" placeholder="******" required maxlength="6">
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+        </form>
+    </div>
+
+    <!-- Script para la lógica del lector QR -->
+    <script>
+        let html5QrcodeScanner = null;
+        const btnToggle = document.getElementById('btn-toggle-qr');
+        const qrDiv = document.getElementById('qr-reader');
+        const inputEmpleado = document.getElementById('id_numero_empleado');
+        const inputPin = document.getElementById('id_pin');
+
+        btnToggle.addEventListener('click', () => {
+            if (qrDiv.style.display === 'none' || qrDiv.style.display === '') {
+                qrDiv.style.display = 'block';
+                btnToggle.textContent = '❌ Cerrar Cámara';
+
+                html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { 
+                    fps: 10, 
+                    qrbox: { width: 250, height: 250 } 
+                });
+
+                html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+            } else {
+                detenerCamara();
+            }
+        });
+
+        function onScanSuccess(decodedText) {
+            // Se ejecuta cuando la cámara lee un QR
+            inputEmpleado.value = decodedText.trim();
+            detenerCamara();
+            
+            // Coloca el foco automáticamente en el PIN para escribirlo rápido
+            inputPin.focus();
+        }
+
+        function onScanFailure(error) {
+            // Ignorar errores de búsqueda cuadro por cuadro
+        }
+
+        function detenerCamara() {
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.clear();
+            }
+            qrDiv.style.display = 'none';
+            btnToggle.textContent = '📷 Escanear Código QR con Cámara';
+        }
+    </script>
+</body>
+</html>
