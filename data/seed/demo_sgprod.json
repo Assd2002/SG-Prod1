@@ -1,0 +1,1090 @@
+{
+  "version": 1,
+  "nombre": "Planta demo SG-Prod",
+  "descripcion": "Escenario reproducible de 5 líneas y 200 empleados para demo y pruebas de volumen.",
+  "pin_default": "123456",
+  "dias_default": 14,
+  "lineas": [
+    {
+      "nombre": "Línea 3",
+      "estaciones": [
+        {
+          "nombre": "Corte",
+          "nivel": "experto",
+          "meta": 88
+        },
+        {
+          "nombre": "Crimpado",
+          "nivel": "autonomo",
+          "meta": 95
+        },
+        {
+          "nombre": "Soldadura",
+          "nivel": "experto",
+          "meta": 102
+        },
+        {
+          "nombre": "Ensamble",
+          "nivel": "autonomo",
+          "meta": 110
+        },
+        {
+          "nombre": "Prueba eléctrica",
+          "nivel": "experto",
+          "meta": 92
+        },
+        {
+          "nombre": "Inspección visual",
+          "nivel": "autonomo",
+          "meta": 96
+        },
+        {
+          "nombre": "Empaque",
+          "nivel": "principiante",
+          "meta": 84
+        },
+        {
+          "nombre": "Etiquetado",
+          "nivel": "principiante",
+          "meta": 80
+        }
+      ]
+    },
+    {
+      "nombre": "Línea 4",
+      "estaciones": [
+        {
+          "nombre": "Corte",
+          "nivel": "experto",
+          "meta": 90
+        },
+        {
+          "nombre": "Terminado",
+          "nivel": "autonomo",
+          "meta": 98
+        },
+        {
+          "nombre": "Ensamble",
+          "nivel": "autonomo",
+          "meta": 105
+        },
+        {
+          "nombre": "Prueba de continuidad",
+          "nivel": "experto",
+          "meta": 112
+        },
+        {
+          "nombre": "Inspección visual",
+          "nivel": "autonomo",
+          "meta": 94
+        },
+        {
+          "nombre": "Empaque",
+          "nivel": "principiante",
+          "meta": 100
+        },
+        {
+          "nombre": "Etiquetado",
+          "nivel": "principiante",
+          "meta": 86
+        },
+        {
+          "nombre": "Paletizado",
+          "nivel": "principiante",
+          "meta": 82
+        }
+      ]
+    },
+    {
+      "nombre": "Línea 5",
+      "estaciones": [
+        {
+          "nombre": "Mezcla",
+          "nivel": "autonomo",
+          "meta": 86
+        },
+        {
+          "nombre": "Llenado",
+          "nivel": "autonomo",
+          "meta": 92
+        },
+        {
+          "nombre": "Sellado",
+          "nivel": "experto",
+          "meta": 100
+        },
+        {
+          "nombre": "Etiquetado",
+          "nivel": "principiante",
+          "meta": 108
+        },
+        {
+          "nombre": "Inspección de lote",
+          "nivel": "autonomo",
+          "meta": 90
+        },
+        {
+          "nombre": "Empaque",
+          "nivel": "principiante",
+          "meta": 96
+        },
+        {
+          "nombre": "Prueba de hermeticidad",
+          "nivel": "experto",
+          "meta": 82
+        },
+        {
+          "nombre": "Paletizado",
+          "nivel": "principiante",
+          "meta": 78
+        }
+      ]
+    },
+    {
+      "nombre": "Línea 6",
+      "estaciones": [
+        {
+          "nombre": "Corte",
+          "nivel": "experto",
+          "meta": 92
+        },
+        {
+          "nombre": "Prensado",
+          "nivel": "autonomo",
+          "meta": 100
+        },
+        {
+          "nombre": "Soldadura",
+          "nivel": "experto",
+          "meta": 106
+        },
+        {
+          "nombre": "Ensamble",
+          "nivel": "autonomo",
+          "meta": 112
+        },
+        {
+          "nombre": "Prueba de fugas",
+          "nivel": "experto",
+          "meta": 96
+        },
+        {
+          "nombre": "Inspección visual",
+          "nivel": "autonomo",
+          "meta": 102
+        },
+        {
+          "nombre": "Empaque",
+          "nivel": "principiante",
+          "meta": 88
+        },
+        {
+          "nombre": "Etiquetado",
+          "nivel": "principiante",
+          "meta": 84
+        }
+      ]
+    },
+    {
+      "nombre": "Línea 7",
+      "estaciones": [
+        {
+          "nombre": "Mezcla",
+          "nivel": "autonomo",
+          "meta": 84
+        },
+        {
+          "nombre": "Dosificación",
+          "nivel": "autonomo",
+          "meta": 90
+        },
+        {
+          "nombre": "Llenado",
+          "nivel": "autonomo",
+          "meta": 96
+        },
+        {
+          "nombre": "Sellado",
+          "nivel": "experto",
+          "meta": 104
+        },
+        {
+          "nombre": "Inspección de lote",
+          "nivel": "autonomo",
+          "meta": 88
+        },
+        {
+          "nombre": "Etiquetado",
+          "nivel": "principiante",
+          "meta": 94
+        },
+        {
+          "nombre": "Empaque",
+          "nivel": "principiante",
+          "meta": 80
+        },
+        {
+          "nombre": "Paletizado",
+          "nivel": "principiante",
+          "meta": 76
+        }
+      ]
+    }
+  ],
+  "defectos": [
+    {
+      "codigo": "DEF-01",
+      "descripcion": "Falta de estaño"
+    },
+    {
+      "codigo": "DEF-02",
+      "descripcion": "Soldadura fría"
+    },
+    {
+      "codigo": "DEF-03",
+      "descripcion": "Crimpado incompleto"
+    },
+    {
+      "codigo": "DEF-04",
+      "descripcion": "Cable invertido"
+    },
+    {
+      "codigo": "DEF-05",
+      "descripcion": "Terminal floja"
+    },
+    {
+      "codigo": "DEF-06",
+      "descripcion": "Pieza rayada"
+    },
+    {
+      "codigo": "DEF-07",
+      "descripcion": "Dimensión fuera de tolerancia"
+    },
+    {
+      "codigo": "DEF-08",
+      "descripcion": "Ensamble incompleto"
+    },
+    {
+      "codigo": "DEF-09",
+      "descripcion": "Componente incorrecto"
+    },
+    {
+      "codigo": "DEF-10",
+      "descripcion": "Contaminación"
+    },
+    {
+      "codigo": "DEF-11",
+      "descripcion": "Etiqueta incorrecta"
+    },
+    {
+      "codigo": "DEF-12",
+      "descripcion": "Empaque dañado"
+    }
+  ],
+  "empleados": {
+    "gerente": {
+      "numero": "SG-0001",
+      "nombre": "Laura Méndez"
+    },
+    "jefes": [
+      {
+        "numero": "SG-0002",
+        "nombre": "Rocío Salas"
+      },
+      {
+        "numero": "SG-0003",
+        "nombre": "Mariana Ortiz"
+      },
+      {
+        "numero": "SG-0004",
+        "nombre": "Iván Castro"
+      },
+      {
+        "numero": "SG-0006",
+        "nombre": "Eduardo Ramírez"
+      },
+      {
+        "numero": "SG-0007",
+        "nombre": "Martha Flores"
+      }
+    ],
+    "operadores": [
+      {
+        "numero": "SG-0005",
+        "nombre": "Verónica Reyes"
+      },
+      {
+        "numero": "SG-0008",
+        "nombre": "Rosa López"
+      },
+      {
+        "numero": "SG-0009",
+        "nombre": "Adriana Campos"
+      },
+      {
+        "numero": "SG-0010",
+        "nombre": "Rosa Aguilar"
+      },
+      {
+        "numero": "SG-0011",
+        "nombre": "Pablo Aguilar"
+      },
+      {
+        "numero": "SG-0012",
+        "nombre": "Ricardo Gómez"
+      },
+      {
+        "numero": "SG-0013",
+        "nombre": "Alberto Flores"
+      },
+      {
+        "numero": "SG-0014",
+        "nombre": "Javier Sánchez"
+      },
+      {
+        "numero": "SG-0015",
+        "nombre": "Alberto Silva"
+      },
+      {
+        "numero": "SG-0016",
+        "nombre": "Francisco Rojas"
+      },
+      {
+        "numero": "SG-0017",
+        "nombre": "Teresa Morales"
+      },
+      {
+        "numero": "SG-0018",
+        "nombre": "Teresa Rojas"
+      },
+      {
+        "numero": "SG-0019",
+        "nombre": "Silvia Cruz"
+      },
+      {
+        "numero": "SG-0020",
+        "nombre": "Pablo Ramírez"
+      },
+      {
+        "numero": "SG-0021",
+        "nombre": "Ricardo Soto"
+      },
+      {
+        "numero": "SG-0022",
+        "nombre": "Rosa García"
+      },
+      {
+        "numero": "SG-0023",
+        "nombre": "Norma Díaz"
+      },
+      {
+        "numero": "SG-0024",
+        "nombre": "Gabriela Ramírez"
+      },
+      {
+        "numero": "SG-0025",
+        "nombre": "Norma Aguilar"
+      },
+      {
+        "numero": "SG-0026",
+        "nombre": "Manuel Morales"
+      },
+      {
+        "numero": "SG-0027",
+        "nombre": "Manuel López"
+      },
+      {
+        "numero": "SG-0028",
+        "nombre": "Elena González"
+      },
+      {
+        "numero": "SG-0029",
+        "nombre": "Sofía Hernández"
+      },
+      {
+        "numero": "SG-0030",
+        "nombre": "Alejandro Hernández"
+      },
+      {
+        "numero": "SG-0031",
+        "nombre": "Javier González"
+      },
+      {
+        "numero": "SG-0032",
+        "nombre": "Francisco Reyes"
+      },
+      {
+        "numero": "SG-0033",
+        "nombre": "Adriana Soto"
+      },
+      {
+        "numero": "SG-0034",
+        "nombre": "Francisco López"
+      },
+      {
+        "numero": "SG-0035",
+        "nombre": "Carmen Jiménez"
+      },
+      {
+        "numero": "SG-0036",
+        "nombre": "Alberto García"
+      },
+      {
+        "numero": "SG-0037",
+        "nombre": "Daniel Cruz"
+      },
+      {
+        "numero": "SG-0038",
+        "nombre": "Jorge Aguilar"
+      },
+      {
+        "numero": "SG-0039",
+        "nombre": "Adriana Mendoza"
+      },
+      {
+        "numero": "SG-0040",
+        "nombre": "Claudia Sánchez"
+      },
+      {
+        "numero": "SG-0041",
+        "nombre": "Daniel Ramírez"
+      },
+      {
+        "numero": "SG-0042",
+        "nombre": "Sergio Mendoza"
+      },
+      {
+        "numero": "SG-0043",
+        "nombre": "Raúl Hernández"
+      },
+      {
+        "numero": "SG-0044",
+        "nombre": "Gabriela Flores"
+      },
+      {
+        "numero": "SG-0045",
+        "nombre": "Carmen González"
+      },
+      {
+        "numero": "SG-0046",
+        "nombre": "Lorena Sánchez"
+      },
+      {
+        "numero": "SG-0047",
+        "nombre": "Alberto Morales"
+      },
+      {
+        "numero": "SG-0048",
+        "nombre": "Sergio Díaz"
+      },
+      {
+        "numero": "SG-0049",
+        "nombre": "Héctor Reyes"
+      },
+      {
+        "numero": "SG-0050",
+        "nombre": "Javier Rojas"
+      },
+      {
+        "numero": "SG-0051",
+        "nombre": "Sergio Gómez"
+      },
+      {
+        "numero": "SG-0052",
+        "nombre": "Lorena Morales"
+      },
+      {
+        "numero": "SG-0053",
+        "nombre": "Patricia Reyes"
+      },
+      {
+        "numero": "SG-0054",
+        "nombre": "Sofía Campos"
+      },
+      {
+        "numero": "SG-0055",
+        "nombre": "Héctor Sánchez"
+      },
+      {
+        "numero": "SG-0056",
+        "nombre": "Alejandro Morales"
+      },
+      {
+        "numero": "SG-0057",
+        "nombre": "Javier Ramírez"
+      },
+      {
+        "numero": "SG-0058",
+        "nombre": "Silvia Núñez"
+      },
+      {
+        "numero": "SG-0059",
+        "nombre": "Teresa Pérez"
+      },
+      {
+        "numero": "SG-0060",
+        "nombre": "Norma Martínez"
+      },
+      {
+        "numero": "SG-0061",
+        "nombre": "Claudia Reyes"
+      },
+      {
+        "numero": "SG-0062",
+        "nombre": "Lorena Ortega"
+      },
+      {
+        "numero": "SG-0063",
+        "nombre": "Rosa Mendoza"
+      },
+      {
+        "numero": "SG-0064",
+        "nombre": "Ricardo Flores"
+      },
+      {
+        "numero": "SG-0065",
+        "nombre": "Óscar Pérez"
+      },
+      {
+        "numero": "SG-0066",
+        "nombre": "Óscar Aguilar"
+      },
+      {
+        "numero": "SG-0067",
+        "nombre": "Pablo Campos"
+      },
+      {
+        "numero": "SG-0068",
+        "nombre": "Lorena Díaz"
+      },
+      {
+        "numero": "SG-0069",
+        "nombre": "Gabriela Ortega"
+      },
+      {
+        "numero": "SG-0070",
+        "nombre": "Óscar Mendoza"
+      },
+      {
+        "numero": "SG-0071",
+        "nombre": "Alejandro Jiménez"
+      },
+      {
+        "numero": "SG-0072",
+        "nombre": "Sofía Jiménez"
+      },
+      {
+        "numero": "SG-0073",
+        "nombre": "Patricia Ortega"
+      },
+      {
+        "numero": "SG-0074",
+        "nombre": "Daniel Jiménez"
+      },
+      {
+        "numero": "SG-0075",
+        "nombre": "Javier Vázquez"
+      },
+      {
+        "numero": "SG-0076",
+        "nombre": "Verónica Mendoza"
+      },
+      {
+        "numero": "SG-0077",
+        "nombre": "Óscar Medina"
+      },
+      {
+        "numero": "SG-0078",
+        "nombre": "Lorena González"
+      },
+      {
+        "numero": "SG-0079",
+        "nombre": "Héctor Vargas"
+      },
+      {
+        "numero": "SG-0080",
+        "nombre": "Daniel Silva"
+      },
+      {
+        "numero": "SG-0081",
+        "nombre": "Sofía Ramírez"
+      },
+      {
+        "numero": "SG-0082",
+        "nombre": "Luis Pérez"
+      },
+      {
+        "numero": "SG-0083",
+        "nombre": "Adriana Aguilar"
+      },
+      {
+        "numero": "SG-0084",
+        "nombre": "Ricardo Cruz"
+      },
+      {
+        "numero": "SG-0085",
+        "nombre": "Javier Reyes"
+      },
+      {
+        "numero": "SG-0086",
+        "nombre": "Raúl Vargas"
+      },
+      {
+        "numero": "SG-0087",
+        "nombre": "Sofía Mendoza"
+      },
+      {
+        "numero": "SG-0088",
+        "nombre": "Óscar Cruz"
+      },
+      {
+        "numero": "SG-0089",
+        "nombre": "Verónica Rojas"
+      },
+      {
+        "numero": "SG-0090",
+        "nombre": "Norma Morales"
+      },
+      {
+        "numero": "SG-0091",
+        "nombre": "Javier Flores"
+      },
+      {
+        "numero": "SG-0092",
+        "nombre": "Alberto Ortega"
+      },
+      {
+        "numero": "SG-0093",
+        "nombre": "Alejandro Martínez"
+      },
+      {
+        "numero": "SG-0094",
+        "nombre": "Norma García"
+      },
+      {
+        "numero": "SG-0095",
+        "nombre": "Mónica Cruz"
+      },
+      {
+        "numero": "SG-0096",
+        "nombre": "Alejandro Medina"
+      },
+      {
+        "numero": "SG-0097",
+        "nombre": "Rosa Cruz"
+      },
+      {
+        "numero": "SG-0098",
+        "nombre": "Claudia Mendoza"
+      },
+      {
+        "numero": "SG-0099",
+        "nombre": "Sofía Cruz"
+      },
+      {
+        "numero": "SG-0100",
+        "nombre": "Alejandro Torres"
+      },
+      {
+        "numero": "SG-0101",
+        "nombre": "Héctor Silva"
+      },
+      {
+        "numero": "SG-0102",
+        "nombre": "Francisco Morales"
+      },
+      {
+        "numero": "SG-0103",
+        "nombre": "Carmen Vázquez"
+      },
+      {
+        "numero": "SG-0104",
+        "nombre": "Sofía Aguilar"
+      },
+      {
+        "numero": "SG-0105",
+        "nombre": "Óscar Hernández"
+      },
+      {
+        "numero": "SG-0106",
+        "nombre": "Rosa Vargas"
+      },
+      {
+        "numero": "SG-0107",
+        "nombre": "Francisco Campos"
+      },
+      {
+        "numero": "SG-0108",
+        "nombre": "Héctor Pérez"
+      },
+      {
+        "numero": "SG-0109",
+        "nombre": "Carmen Ramírez"
+      },
+      {
+        "numero": "SG-0110",
+        "nombre": "Gabriela Sánchez"
+      },
+      {
+        "numero": "SG-0111",
+        "nombre": "Carmen Gómez"
+      },
+      {
+        "numero": "SG-0112",
+        "nombre": "Javier Vargas"
+      },
+      {
+        "numero": "SG-0113",
+        "nombre": "Pablo Díaz"
+      },
+      {
+        "numero": "SG-0114",
+        "nombre": "Ricardo Martínez"
+      },
+      {
+        "numero": "SG-0115",
+        "nombre": "Teresa Jiménez"
+      },
+      {
+        "numero": "SG-0116",
+        "nombre": "Sofía Ortega"
+      },
+      {
+        "numero": "SG-0117",
+        "nombre": "Teresa Vázquez"
+      },
+      {
+        "numero": "SG-0118",
+        "nombre": "Raúl Pérez"
+      },
+      {
+        "numero": "SG-0119",
+        "nombre": "Ana López"
+      },
+      {
+        "numero": "SG-0120",
+        "nombre": "Manuel Sánchez"
+      },
+      {
+        "numero": "SG-0121",
+        "nombre": "Silvia Rojas"
+      },
+      {
+        "numero": "SG-0122",
+        "nombre": "Alejandro Campos"
+      },
+      {
+        "numero": "SG-0123",
+        "nombre": "Francisco Pérez"
+      },
+      {
+        "numero": "SG-0124",
+        "nombre": "Alberto Núñez"
+      },
+      {
+        "numero": "SG-0125",
+        "nombre": "Óscar Sánchez"
+      },
+      {
+        "numero": "SG-0126",
+        "nombre": "Jorge Gómez"
+      },
+      {
+        "numero": "SG-0127",
+        "nombre": "Lorena Mendoza"
+      },
+      {
+        "numero": "SG-0128",
+        "nombre": "Verónica García"
+      },
+      {
+        "numero": "SG-0129",
+        "nombre": "Carmen Flores"
+      },
+      {
+        "numero": "SG-0130",
+        "nombre": "Manuel Torres"
+      },
+      {
+        "numero": "SG-0131",
+        "nombre": "Alejandro Pérez"
+      },
+      {
+        "numero": "SG-0132",
+        "nombre": "Javier Medina"
+      },
+      {
+        "numero": "SG-0133",
+        "nombre": "Alejandro Sánchez"
+      },
+      {
+        "numero": "SG-0134",
+        "nombre": "Daniel Reyes"
+      },
+      {
+        "numero": "SG-0135",
+        "nombre": "Héctor González"
+      },
+      {
+        "numero": "SG-0136",
+        "nombre": "Javier Pérez"
+      },
+      {
+        "numero": "SG-0137",
+        "nombre": "Verónica Medina"
+      },
+      {
+        "numero": "SG-0138",
+        "nombre": "Ana Díaz"
+      },
+      {
+        "numero": "SG-0139",
+        "nombre": "Patricia Aguilar"
+      },
+      {
+        "numero": "SG-0140",
+        "nombre": "Carmen Martínez"
+      },
+      {
+        "numero": "SG-0141",
+        "nombre": "Norma Hernández"
+      },
+      {
+        "numero": "SG-0142",
+        "nombre": "Adriana Hernández"
+      },
+      {
+        "numero": "SG-0143",
+        "nombre": "Alejandro Rojas"
+      },
+      {
+        "numero": "SG-0144",
+        "nombre": "Ana Ramírez"
+      },
+      {
+        "numero": "SG-0145",
+        "nombre": "Verónica Morales"
+      },
+      {
+        "numero": "SG-0146",
+        "nombre": "Mónica Ortega"
+      },
+      {
+        "numero": "SG-0147",
+        "nombre": "Mónica Díaz"
+      },
+      {
+        "numero": "SG-0148",
+        "nombre": "Silvia Gómez"
+      },
+      {
+        "numero": "SG-0149",
+        "nombre": "Javier Torres"
+      },
+      {
+        "numero": "SG-0150",
+        "nombre": "Jorge Sánchez"
+      },
+      {
+        "numero": "SG-0151",
+        "nombre": "Verónica Vargas"
+      },
+      {
+        "numero": "SG-0152",
+        "nombre": "Héctor Gómez"
+      },
+      {
+        "numero": "SG-0153",
+        "nombre": "Ricardo Núñez"
+      },
+      {
+        "numero": "SG-0154",
+        "nombre": "Manuel Mendoza"
+      },
+      {
+        "numero": "SG-0155",
+        "nombre": "Patricia Martínez"
+      },
+      {
+        "numero": "SG-0156",
+        "nombre": "Elena Vázquez"
+      },
+      {
+        "numero": "SG-0157",
+        "nombre": "Luis Vázquez"
+      },
+      {
+        "numero": "SG-0158",
+        "nombre": "Luis Cruz"
+      },
+      {
+        "numero": "SG-0159",
+        "nombre": "Sergio Rojas"
+      },
+      {
+        "numero": "SG-0160",
+        "nombre": "Adriana Vargas"
+      },
+      {
+        "numero": "SG-0161",
+        "nombre": "Manuel Aguilar"
+      },
+      {
+        "numero": "SG-0162",
+        "nombre": "Ana Pérez"
+      },
+      {
+        "numero": "SG-0163",
+        "nombre": "Adriana Reyes"
+      },
+      {
+        "numero": "SG-0164",
+        "nombre": "Elena Medina"
+      },
+      {
+        "numero": "SG-0165",
+        "nombre": "Lorena Reyes"
+      },
+      {
+        "numero": "SG-0166",
+        "nombre": "Lorena Pérez"
+      },
+      {
+        "numero": "SG-0167",
+        "nombre": "Miguel Ortega"
+      },
+      {
+        "numero": "SG-0168",
+        "nombre": "Sergio Torres"
+      },
+      {
+        "numero": "SG-0169",
+        "nombre": "Patricia Ibarra"
+      },
+      {
+        "numero": "SG-0170",
+        "nombre": "Héctor Jiménez"
+      },
+      {
+        "numero": "SG-0171",
+        "nombre": "Héctor Campos"
+      },
+      {
+        "numero": "SG-0172",
+        "nombre": "Daniel Torres"
+      },
+      {
+        "numero": "SG-0173",
+        "nombre": "Raúl Torres"
+      },
+      {
+        "numero": "SG-0174",
+        "nombre": "Óscar Rojas"
+      },
+      {
+        "numero": "SG-0175",
+        "nombre": "Norma Flores"
+      },
+      {
+        "numero": "SG-0176",
+        "nombre": "Miguel López"
+      },
+      {
+        "numero": "SG-0177",
+        "nombre": "Gabriela Díaz"
+      },
+      {
+        "numero": "SG-0178",
+        "nombre": "Sofía Silva"
+      },
+      {
+        "numero": "SG-0179",
+        "nombre": "Rosa Campos"
+      },
+      {
+        "numero": "SG-0180",
+        "nombre": "Elena Núñez"
+      },
+      {
+        "numero": "SG-0181",
+        "nombre": "Ana Soto"
+      },
+      {
+        "numero": "SG-0182",
+        "nombre": "Lorena Cruz"
+      },
+      {
+        "numero": "SG-0183",
+        "nombre": "Adriana López"
+      },
+      {
+        "numero": "SG-0184",
+        "nombre": "Javier Silva"
+      },
+      {
+        "numero": "SG-0185",
+        "nombre": "Sergio Campos"
+      },
+      {
+        "numero": "SG-0186",
+        "nombre": "Ana Hernández"
+      },
+      {
+        "numero": "SG-0187",
+        "nombre": "Raúl Jiménez"
+      },
+      {
+        "numero": "SG-0188",
+        "nombre": "Javier Jiménez"
+      },
+      {
+        "numero": "SG-0189",
+        "nombre": "Elena Díaz"
+      },
+      {
+        "numero": "SG-0190",
+        "nombre": "Ricardo Mendoza"
+      },
+      {
+        "numero": "SG-0191",
+        "nombre": "Teresa Sánchez"
+      },
+      {
+        "numero": "SG-0192",
+        "nombre": "Francisco Vargas"
+      },
+      {
+        "numero": "SG-0193",
+        "nombre": "Silvia García"
+      },
+      {
+        "numero": "SG-0194",
+        "nombre": "Silvia Ibarra"
+      },
+      {
+        "numero": "SG-0195",
+        "nombre": "Manuel Jiménez"
+      },
+      {
+        "numero": "SG-0196",
+        "nombre": "Jorge Díaz"
+      },
+      {
+        "numero": "SG-0197",
+        "nombre": "Javier Ibarra"
+      },
+      {
+        "numero": "SG-0198",
+        "nombre": "Rosa Flores"
+      },
+      {
+        "numero": "SG-0199",
+        "nombre": "Miguel Díaz"
+      },
+      {
+        "numero": "SG-0200",
+        "nombre": "Manuel Martínez"
+      }
+    ]
+  }
+}

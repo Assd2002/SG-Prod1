@@ -144,6 +144,29 @@ pytest            # debe correr sin fallos
 ruff check .      # debe decir: All checks passed!
 ```
 
+### 5.1 Datos de demo (US-04)
+
+Para cargar el escenario maestro de demostración:
+
+```powershell
+python manage.py seed_demo --reset
+```
+
+Carga **5 líneas, 40 estaciones, 200 empleados**, metas, catálogo de defectos y
+matriz de habilidades desde [`data/seed/demo_sgprod.json`](data/seed/demo_sgprod.json).
+El PIN de demo es `123456` y las credenciales se imprimen al terminar.
+
+El comando **no** crea asignaciones ni registros de producción: esa lógica se
+conecta en historias posteriores. Para una carga rápida o para simular menos
+personal:
+
+```powershell
+python manage.py seed_demo --empleados 80
+python manage.py seed_demo --archivo data/seed/demo_sgprod.json --reset
+```
+
+> `--reset` borra los datos de demo antes de cargarlos. Úsalo solo en tu base local.
+
 ---
 
 ## 6. Día a día
