@@ -1,14 +1,46 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <title>Panel Operador</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="p-4 bg-light">
-    <div class="container bg-white p-5 rounded shadow">
-        <h1 class="text-primary">Pantalla de Operador</h1>
-        <p class="lead">Bienvenido(a).</p>
-        <a href="/personal/login/" class="btn btn-outline-danger">Cerrar Sesión</a>
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Mi turno · SG-Prod{% endblock %}
+
+{% block nav_links %}
+  <a href="{% url 'dashboard:pantalla_operador' %}" aria-current="page">Mi turno</a>
+  <a href="{% url 'personal:logout' %}">Cerrar sesión</a>
+{% endblock %}
+
+{% block content %}
+<header class="sg-page-head">
+  <div>
+    <p class="sg-eyebrow">Operación · Estación</p>
+    <h1>Mi turno</h1>
+    <p>Consulta tu estación, tu producción y tu elegibilidad al bono.</p>
+  </div>
+  <span class="sg-badge">Operador</span>
+</header>
+
+<section class="sg-role-grid" aria-label="Secciones del turno del operador">
+  <article class="sg-card sg-role-card">
+    <p class="sg-eyebrow">Hoy</p>
+    <h2>Mi estación</h2>
+    <p class="sg-muted">La estación y el turno que tienes asignados.</p>
+    <div class="sg-empty">Pendiente de conectar la asignación actual.</div>
+  </article>
+
+  <article class="sg-card sg-role-card">
+    <p class="sg-eyebrow">Resultado</p>
+    <h2>Mi producción</h2>
+    <p class="sg-muted">Piezas aceptadas, rechazadas y retrabajo del turno.</p>
+    <div class="sg-empty">Pendiente de conectar los registros de calidad.</div>
+  </article>
+
+  <article class="sg-card sg-role-card">
+    <p class="sg-eyebrow">Periodo</p>
+    <h2>Mi bono</h2>
+    <p class="sg-muted">Tu avance hacia el bono por cero defectos.</p>
+    <div class="sg-empty">Pendiente de conectar el cálculo del bono.</div>
+  </article>
+</section>
+
+<footer class="sg-role-footer">
+  <span class="sg-muted sg-small">Vista base por rol. Tus datos se integrarán en una historia posterior.</span>
+</footer>
+{% endblock %}

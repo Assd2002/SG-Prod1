@@ -1,14 +1,46 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <title>Panel Gerente</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="p-4 bg-light">
-    <div class="container bg-white p-5 rounded shadow">
-        <h1 class="text-success">Pantalla de Gerente</h1>
-        <p class="lead">Bienvenido(a). Aquí podrás consultar reportes globales y métricas (KPIs).</p>
-        <a href="/personal/login/" class="btn btn-outline-danger">Cerrar Sesión</a>
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Tablero gerencial · SG-Prod{% endblock %}
+
+{% block nav_links %}
+  <a href="{% url 'dashboard:pantalla_gerente' %}" aria-current="page">Tablero</a>
+  <a href="{% url 'personal:logout' %}">Cerrar sesión</a>
+{% endblock %}
+
+{% block content %}
+<header class="sg-page-head">
+  <div>
+    <p class="sg-eyebrow">Gerencia · Planta</p>
+    <h1>Tablero gerencial</h1>
+    <p>Vista de conjunto para seguir producción, calidad, bonos y capacitación.</p>
+  </div>
+  <span class="sg-badge sg-badge--ok">Gerente de Producción</span>
+</header>
+
+<section class="sg-role-grid" aria-label="Secciones del tablero gerencial">
+  <article class="sg-card sg-role-card">
+    <p class="sg-eyebrow">Producción</p>
+    <h2>Indicadores de planta</h2>
+    <p class="sg-muted">FPY, piezas por hora y tasa de defectos de todas las líneas.</p>
+    <div class="sg-empty">Pendiente de conectar los datos de producción.</div>
+  </article>
+
+  <article class="sg-card sg-role-card">
+    <p class="sg-eyebrow">Reconocimiento</p>
+    <h2>Bonos del periodo</h2>
+    <p class="sg-muted">Operadores elegibles y seguimiento del bono por cero defectos.</p>
+    <div class="sg-empty">Pendiente de conectar el cálculo del periodo.</div>
+  </article>
+
+  <article class="sg-card sg-role-card">
+    <p class="sg-eyebrow">Desarrollo</p>
+    <h2>Capacitación dirigida</h2>
+    <p class="sg-muted">Estaciones y personas que requieren apoyo según sus resultados.</p>
+    <div class="sg-empty">Pendiente de conectar las alertas de capacitación.</div>
+  </article>
+</section>
+
+<footer class="sg-role-footer">
+  <span class="sg-muted sg-small">Vista base por rol. Los datos se integran en una historia posterior.</span>
+</footer>
+{% endblock %}

@@ -1,0 +1,123 @@
+/* SG-Prod · capa de aplicación sobre theme.css.
+   Solo presentación: las pantallas de esta rama son estáticas y todavía no
+   consultan datos. Así el equipo puede conectar la lógica sin rehacer el HTML. */
+
+/* Navegación y estados compartidos */
+.sg-nav__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .35rem;
+  margin-left: auto;
+}
+.sg-nav .sg-logo {
+  color: #fff;
+  text-decoration: none;
+}
+.sg-nav .sg-logo b { color: var(--sg-thread); }
+
+.sg-flashes {
+  display: grid;
+  gap: .75rem;
+  max-width: 760px;
+  margin: 0 auto 1.25rem;
+}
+.sg-flash {
+  padding: .9rem 1.1rem;
+  border: 2px solid var(--sg-line);
+  border-left: 7px solid var(--sg-teal);
+  border-radius: var(--sg-radius);
+  background: var(--sg-card);
+  font-weight: 600;
+}
+.sg-flash--error { border-left-color: var(--sg-bad); }
+.sg-flash--ok { border-left-color: var(--sg-ok); }
+
+.sg-eyebrow {
+  margin: 0 0 .35rem;
+  color: var(--sg-teal);
+  font: 700 .9rem var(--sg-font-head);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.sg-muted { color: var(--sg-muted); }
+.sg-small { font-size: .95rem; }
+
+/* Acceso */
+.sg-login-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(14, 100, 120, .16), transparent 32rem),
+    radial-gradient(circle at 90% 85%, rgba(242, 183, 5, .12), transparent 28rem),
+    var(--sg-paper);
+}
+.sg-login-main {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+.sg-login { width: min(470px, 100%); }
+.sg-login__brand {
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--sg-nav);
+  font: 700 2rem var(--sg-font-head);
+}
+.sg-login__brand b { color: var(--sg-thread); }
+.sg-login__card { padding: 1.5rem; }
+.sg-login__card h1 { font-size: 1.75rem; }
+.sg-login__hint {
+  margin: 1rem 0 0;
+  color: var(--sg-muted);
+  font-size: .92rem;
+  text-align: center;
+}
+.sg-qr-reader {
+  display: none;
+  width: 100%;
+  margin: 0 auto .9rem;
+  padding: .5rem;
+  border: 1px solid var(--sg-line);
+  border-radius: var(--sg-radius);
+  background: var(--sg-card);
+}
+.sg-field-error {
+  display: block;
+  margin-top: .25rem;
+  color: var(--sg-bad-fg);
+  font-size: .9rem;
+  font-weight: 600;
+}
+.sg-login .sg-btn { width: 100%; }
+.sg-login .sg-btn + .sg-btn { margin-top: .6rem; }
+
+/* Pantallas posteriores al login */
+.sg-role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+.sg-role-card { display: flex; flex-direction: column; gap: .75rem; min-height: 190px; }
+.sg-role-card h2 { margin: 0; font-size: 1.2rem; }
+.sg-role-card p { margin: 0; }
+.sg-role-card .sg-empty { margin-top: auto; }
+.sg-role-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin-top: 1.25rem;
+}
+.sg-empty {
+  padding: .9rem 1rem;
+  border: 2px dashed var(--sg-line);
+  border-radius: var(--sg-radius);
+  color: var(--sg-muted);
+  font-size: .95rem;
+}
+
+@media (max-width: 640px) {
+  .sg-login__card { padding: 1.2rem; }
+  .sg-nav { align-items: flex-start; }
+  .sg-nav__links { width: 100%; margin-left: 0; }
+}
