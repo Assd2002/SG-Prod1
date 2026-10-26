@@ -17,12 +17,16 @@ posteriores.
 ```bash
 python manage.py seed_demo
 python manage.py seed_demo --reset
-python manage.py seed_demo --empleados 80
+python manage.py seed_demo --empleados 80 --reset
 python manage.py seed_demo --archivo data/seed/demo_sgprod.json --reset
 ```
 
 `--empleados` conserva siempre al Gerente y a todos los Jefes del JSON; el resto
 se toma del inicio de la lista de Operadores.
+
+Sin `--reset`, el comando actualiza y crea registros, pero **no borra** empleados,
+estaciones ni habilidades que ya existían. Para que la base quede exactamente con
+el volumen pedido, usa `--reset` junto con `--empleados`.
 
 ## Formato
 
@@ -31,6 +35,7 @@ se toma del inicio de la lista de Operadores.
   "version": 1,
   "nombre": "Planta demo SG-Prod",
   "pin_default": "123456",
+  "dias_default": 14,
   "lineas": [
     {
       "nombre": "Línea 3",
@@ -59,6 +64,10 @@ Validaciones:
 - códigos de defecto únicos;
 - números de empleado únicos;
 - al menos una línea, una estación, un defecto, un Gerente, un Jefe y un Operador.
+
+`nivel` y `dias_default` se conservan para la siguiente etapa del proyecto: el
+seed actual no genera producción y usa una matriz de cobertura fija. Si cambias
+esos valores hoy, no cambian los registros de `SkillMatrix`.
 
 Este archivo es la fuente de verdad de los datos de demo. No edites nombres,
 estaciones o personas dentro del comando.

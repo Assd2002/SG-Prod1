@@ -140,8 +140,9 @@ Abre <http://127.0.0.1:8000/admin/> e inicia sesión con tu superusuario. **Si e
 Verificación final de calidad:
 
 ```powershell
-pytest            # debe correr sin fallos
-ruff check .      # debe decir: All checks passed!
+python manage.py check_db  # base y migraciones en sync
+pytest                     # debe correr sin fallos
+ruff check .               # no debe introducir errores nuevos
 ```
 
 ### 5.1 Datos de demo (US-04)
@@ -161,11 +162,60 @@ conecta en historias posteriores. Para una carga rápida o para simular menos
 personal:
 
 ```powershell
-python manage.py seed_demo --empleados 80
+python manage.py seed_demo --empleados 80 --reset
 python manage.py seed_demo --archivo data/seed/demo_sgprod.json --reset
 ```
 
-> `--reset` borra los datos de demo antes de cargarlos. Úsalo solo en tu base local.
+> `--reset` borra **todos los datos de dominio** de esa base (empleados, líneas,
+> estaciones, habilidades, metas, defectos, asignaciones y registros), no solo
+> los de demo. Úsalo solo en tu base local.
+>
+> Sin `--reset`, el comando actualiza y crea registros, pero **no elimina** los
+> que ya existían. Para un volumen exacto, combina `--reset --empleados N`.
+
+### 5.2 Revisar que la base coincide con la rama
+
+Antes de culpar al código, revisa el estado de la base. El siguiente comando es
+**solo lectura** y no modifica nada:
+
+```powershell
+python manage.py check_db
+```
+
+Comprueba que existan las tablas y columnas de esta rama, que no haya
+migraciones aplicadas por otra rama y muestra cuántos datos de demo hay.
+Devuelve código de salida `1` si el esquema o las migraciones no coinciden.
+
+Si ves un error como:
+
+```text
+psycopg.errors.UndefinedColumn: column calidad_registrocalidadhorario.asignacion_id does not exist
+```
+
+la base quedó con el esquema de otra rama (por ejemplo, la rama vieja del MVP).
+`python manage.py migrate` no lo corrige, porque las migraciones de esa rama ya
+no existen en este checkout. La guía tiene el procedimiento completo en
+[§14.8.1](docs/00_guia_ambiente_desarrollo.md#1481-errores-de-columna-al-cambiar-de-rama).
+
+Resumen:
+
+```powershell
+# Opción recomendada: crear una base nueva y conservar la anterior
+docker exec -it pgsql psql -U <usuario> -d postgres -c "CREATE DATABASE sgprod_dev_ui;"
+# Cambia solo DB_NAME en el .env de la raíz a sgprod_dev_ui.
+# POSTGRES_DB no cambia: el contenedor ya creó su base inicial.
+python manage.py migrate
+python manage.py check_db
+python manage.py seed_demo --reset
+
+# Alternativa destructiva: reiniciar el esquema de la base actual
+docker exec -it pgsql psql -U <usuario> -d <tu_base> -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+python manage.py migrate
+python manage.py check_db
+```
+
+> No uses `migrate --fake` ni borres archivos de migración para “arreglar” esto.
+> Una base debe corresponder a una sola rama con modelos compatibles.
 
 ---
 
@@ -175,7 +225,9 @@ python manage.py seed_demo --archivo data/seed/demo_sgprod.json --reset
 # Al empezar (Windows: primero abre Docker Desktop; PostgreSQL arranca solo)
 .\.venv\Scripts\Activate.ps1
 git checkout dev; git pull
+python -m pip install -r requirements/dev.txt
 python manage.py migrate          # por si alguien subió migraciones nuevas
+python manage.py check_db         # ¿la base coincide con esta rama?
 python manage.py runserver
 
 # Al terminar: Ctrl+C para detener el servidor
@@ -205,6 +257,7 @@ python manage.py runserver
 | `database "..." does not exist` | `DB_NAME` no coincide con `POSTGRES_DB`, o cambiaste `POSTGRES_DB` después de crear el contenedor (guía §14.6 y §14.9). |
 | `No module named django` | No activaste el `.venv` (sección 2). |
 | `connection timeout expired` al migrar | El contenedor no está arriba o aún no está `healthy` (sección 4). |
+| `column ... does not exist` o errores raros de columnas | La base quedó de otra rama. Corre `python manage.py check_db` y sigue la guía §14.8.1. |
 
 Para cualquier otro error, consulta la [§14 de la guía](docs/00_guia_ambiente_desarrollo.md#14-problemas-comunes-how-to-solve-them).
 
@@ -228,6 +281,7 @@ sgProd/
 │   └── dashboard/          # KPIs, bonos, capacitación (Módulo 3)
 ├── templates/              # base.html (paquete de diseño)
 ├── static/css/theme.css    # estilos compartidos (paquete de diseño)
+├── data/seed/              # dataset JSON de demo (US-04)
 ├── postgresql/             # docker-compose.yml + .env.example del contenedor
 ├── SG-Prod_diseno/         # paquete de diseño original y guía de estilo
 └── docs/                   # guía del ambiente, alcance del proyecto

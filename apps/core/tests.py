@@ -31,3 +31,14 @@ def test_dataset_rechaza_numeros_de_empleado_repetidos(tmp_path):
 
     with pytest.raises(ValueError, match="repetidos"):
         cargar_dataset(archivo)
+
+
+@pytest.mark.django_db
+def test_check_db_accepts_the_current_schema(capsys):
+    from django.core.management import call_command
+
+    call_command("check_db")
+
+    salida = capsys.readouterr().out
+    assert "Esquema: OK" in salida
+    assert "[ERROR]" not in salida

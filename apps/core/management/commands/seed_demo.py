@@ -60,7 +60,10 @@ class Command(BaseCommand):
             "--empleados",
             type=int,
             default=None,
-            help="Total de empleados a cargar. Por defecto, todos los del JSON (200).",
+            help=(
+                "Total de empleados a cargar. Por defecto, todos los del JSON. "
+                "No elimina sobrantes; combínalo con --reset para un volumen exacto."
+            ),
         )
         parser.add_argument(
             "--pin",
@@ -76,7 +79,10 @@ class Command(BaseCommand):
         parser.add_argument(
             "--reset",
             action="store_true",
-            help="Borra los datos de demo antes de cargar. Solo para desarrollo local.",
+            help=(
+                "Borra TODOS los datos de dominio de la base antes de cargar "
+                "(no solo los de demo). Solo para desarrollo local."
+            ),
         )
 
     def handle(self, *args, **options):

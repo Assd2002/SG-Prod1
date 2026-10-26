@@ -24,7 +24,7 @@
 7. Crear los dos .env                 -> postgresql/.env y el .env de Django
 8. Levantar PostgreSQL en Docker       -> cd postgresql && docker compose up -d
 9. Verificar la conexión a la BD       -> python manage.py check --database default
-10. Migrar y crear superusuario        -> migrate / createsuperuser
+10. Migrar, revisar la BD y crear superusuario -> migrate / check_db / createsuperuser
 11. Levantar el servidor y validar     -> runserver + /admin/
 12. Equivalencias de comandos          -> Windows 11 (PowerShell) <-> Linux / macOS
 13. Reparto de responsabilidades y acuerdos de equipo
@@ -351,6 +351,7 @@ sg-prod/
 │   ├── personal/              # empleados, estaciones, skill matrix (Módulo 1)
 │   ├── calidad/               # captura horaria, defectos (Módulo 2)
 │   └── dashboard/             # KPIs, bonos, capacitación (Módulo 3)
+├── data/seed/                 # dataset JSON de demo (US-04)
 ├── templates/                 # base.html y pantallas (paquete de Martha)
 ├── static/                    # css/theme.css (paquete de Martha)
 └── docs/                      # esta guía, historias de usuario, MER
@@ -691,6 +692,12 @@ Y en el `.env` de Django, el mismo nombre:
 DB_NAME=sgprod_dev_tunombre
 ```
 
+> **Excepción útil:** si crean una base adicional para otra rama (por ejemplo,
+> `sgprod_dev_ui`), el contenedor ya creó la base de `POSTGRES_DB` y **no hace
+> falta cambiarla**. Solo apunten `DB_NAME` a la base nueva. La regla de que
+> ambos nombres coincidan aplica a la base inicial del contenedor, no impide
+> tener bases separadas para ramas con modelos distintos.
+
 Si en cambio prefieren una base por proyecto/sprint sobre el mismo contenedor, se crea así:
 
 ```bash
@@ -891,6 +898,38 @@ Validación final: abrir <http://127.0.0.1:8000/admin/> e iniciar sesión.
 
 **Sugerencia de higiene (no obligatoria en Sprint 1):** para no mezclar cambios de modelos entre 7 personas, antes de `makemigrations` hagan `git pull` de `dev`, y suban las migraciones **en el mismo commit** que el cambio del modelo. Recuerden que cada quien tiene su propia base: si alguien más agrega una migración, ustedes solo necesitan `git pull` + `python manage.py migrate` en su contenedor.
 
+### 9.1 Revisar que la base coincide con la rama
+
+Antes de investigar un error raro, ejecuten este diagnóstico de **solo lectura** desde la raíz:
+
+```bash
+python manage.py check_db
+```
+
+El comando revisa:
+
+1. que existan las tablas de `personal`, `calidad` y `dashboard`;
+2. que cada tabla tenga las columnas que esperan los modelos actuales;
+3. que no haya migraciones aplicadas por otra rama que ya no existe en este checkout;
+4. que no queden migraciones pendientes;
+5. cuántos datos de demo hay cargados.
+
+Si todo coincide, termina con `Base sincronizada con esta rama.` y código de salida `0`. Si encuentra un problema, muestra `[ERROR]`, explica qué hacer y termina con código `1`. **No borra ni modifica nada.**
+
+La regla del equipo es simple: **una base corresponde a una rama con modelos compatibles**. Si cambias de una rama con modelos/migraciones distintas, no reutilices la misma base “a ver si funciona”; crea una base nueva o reinicia su esquema. El procedimiento está en §14.8.1.
+
+### 9.2 Cargar los datos de demo
+
+Después de migrar una base limpia, el escenario de demo se carga con:
+
+```bash
+python manage.py seed_demo --reset
+```
+
+Carga 5 líneas, 40 estaciones, 200 empleados, metas, defectos y matriz de habilidades desde [`data/seed/demo_sgprod.json`](<../data/seed/demo_sgprod.json>). El comando imprime las credenciales; el PIN es `123456`.
+
+> **Cuidado:** `--reset` borra **todos los datos de dominio** de la base (no solo los de demo). Úsalo únicamente en tu base local. Sin `--reset`, el comando no elimina los registros que ya existían; para un volumen exacto usa `--reset --empleados N`.
+
 ---
 
 ## 10. Checklist de "ambiente listo" (cada persona lo llena y lo reporta)
@@ -913,9 +952,11 @@ Aplica igual en Windows 11, Linux y macOS. En Windows, todos los comandos se eje
 - [ ] (Opcional) pgAdmin abre en <http://localhost:8888> y se conecta a la base con host `pgsql`
 - [ ] `python manage.py check` sin errores
 - [ ] `python manage.py migrate` aplica sin errores
+- [ ] `python manage.py check_db` termina en `Base sincronizada con esta rama.`
+- [ ] (Opcional, para demo) `python manage.py seed_demo --reset` carga 200 empleados
 - [ ] `runserver` levanta y `/admin/` carga con el superusuario
 - [ ] `templates/base.html` y `static/css/theme.css` del paquete de diseño copiados
-- [ ] `pytest` corre (aunque no haya pruebas todavía: 0 tests, 0 fallos)
+- [ ] `pytest` corre sin fallos
 - [ ] `ruff check .` corre sin errores nuevos
 
 Cuando todo esté marcado, se avisa en el canal del equipo y **se cierra la tarea de Sprint 1 "Entorno Django/PostgreSQL"**.
@@ -962,7 +1003,7 @@ Una tarea del Sprint 1 se considera terminada solo si cumple **todo** esto:
 
 - [ ] El código está en una rama `feat/...` con PR hacia `dev` y **una** revisión aprobada.
 - [ ] `python manage.py check` y `python manage.py migrate` corren sin errores en una base vacía (comprobado por alguien más).
-- [ ] `ruff check .` sin errores nuevos y `pytest` en verde (0 fallos).
+- [ ] `ruff check .` sin errores nuevos y `pytest` en verde.
 - [ ] Si tocó modelos, las migraciones van **en el mismo PR**.
 - [ ] Si agregó variables nuevas, `.env.example` quedó actualizado.
 - [ ] El *seeding* de Karen reproduce lo que la pantalla necesita para verse.
@@ -1043,9 +1084,9 @@ Como hay 7 personas y 10 semanas, el riesgo real no es la base de datos: es **el
 | :---- | :---- |
 | Dos personas editan el mismo modelo | Una historia de usuario = una rama = un dueño; avisar en el canal antes de tocar `models.py` de un módulo ajeno |
 | Migraciones con el mismo número | Solo Ángela genera migraciones en Sprint 1; en sprints siguientes, la persona dueña del módulo avisa antes de `makemigrations` |
-| Datos distintos en cada base y "a mí sí me funciona" | El *seeding* (Karen) es la fuente de verdad: `python manage.py seed_demo` debe reproducir el mismo escenario en cualquier máquina |
+| Datos distintos en cada base y "a mí sí me funciona" | El *seeding* (Karen) es la fuente de verdad: `python manage.py seed_demo --reset` debe reproducir el mismo escenario en cualquier máquina |
 | Alguien sube su `.env` por accidente | `git check-ignore -v .env` en el checklist del §10; revisión obligatoria en el PR |
-| Ambiente desactualizado | Después de cada `git pull`: `python -m pip install -r requirements/dev.txt`, `python manage.py migrate` y, si cambió el compose, `cd postgresql && docker compose up -d` |
+| Ambiente desactualizado | Después de cada `git pull`: `python -m pip install -r requirements/dev.txt`, `python manage.py migrate`, `python manage.py check_db` y, si cambió el compose, `cd postgresql && docker compose up -d` |
 | Alguien sube `postgresql/db-data/` por error | Verificar `git check-ignore -v postgresql/db-data/` antes del primer `docker compose up`, y revisarlo en el PR |
 | Los dos `.env` se desincronizan | Regla del §7.4: `POSTGRES_DB`↔`DB_NAME`, `DB_USR`↔`DB_USER`, `DB_PWD`↔`DB_PASSWORD` siempre iguales |
 
@@ -1193,6 +1234,72 @@ python manage.py migrate
 ```
 
 Si persiste, probablemente dos personas generaron migraciones con el mismo número: hagan `git pull`, revisen `git status`, y **consulten a Ángela** antes de borrar nada.
+
+### 14.8.1 Errores de columna al cambiar de rama
+
+Ejemplo real:
+
+```text
+psycopg.errors.UndefinedColumn: column calidad_registrocalidadhorario.asignacion_id does not exist
+```
+
+o, al abrir el admin/alguna pantalla:
+
+```text
+django.db.utils.ProgrammingError: column personal_empleado.pin does not exist
+```
+
+**Qué pasó:** tu base fue migrada con otra rama que tenía modelos distintos. Por ejemplo, la rama vieja del MVP aplicó `personal.0003_alineacion_mvp`, `calidad.0002_alineacion_mvp` y `dashboard.0002_alineacion_mvp`. Esas migraciones ya no existen en este checkout, así que `python manage.py migrate` dice *“No planned migration operations”* y no puede corregir las tablas.
+
+Primero confirma el diagnóstico (no modifica nada):
+
+```bash
+python manage.py check_db
+```
+
+Si reporta columnas faltantes o migraciones de otra rama, tienes dos caminos.
+
+#### Opción A (recomendada): crear una base nueva y conservar la anterior
+
+La base anterior queda intacta; solo cambias `DB_NAME` para este checkout.
+
+```bash
+# Crear la base dentro del mismo contenedor. Usa tu usuario de postgresql/.env
+docker exec -it pgsql psql -U <usuario> -d postgres -c "CREATE DATABASE sgprod_dev_ui;"
+
+# En el .env de la RAÍZ:
+# DB_NAME=sgprod_dev_ui
+# POSTGRES_DB no cambia: el contenedor ya creó su base inicial.
+
+python manage.py migrate
+python manage.py check_db
+python manage.py seed_demo --reset   # opcional, para datos de demo
+```
+
+En Windows/PowerShell el comando de Docker es una sola línea, igual que arriba. Si `docker exec -it` dice *“the input device is not a TTY”*, quita la `-t`.
+
+#### Opción B: reiniciar el esquema de la base actual
+
+**Esto borra todos los datos de esa base.** Úsalo solo si no necesitas conservarlos.
+
+```bash
+docker exec -it pgsql psql -U <usuario> -d <tu_base> \
+  -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+
+python manage.py migrate
+python manage.py check_db
+python manage.py seed_demo --reset   # opcional
+```
+
+En PowerShell, pon el `-c` en una sola línea:
+
+```powershell
+docker exec -it pgsql psql -U <usuario> -d <tu_base> -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+```
+
+> **No hagas esto para “arreglar” una migración puntual:** no uses `migrate --fake`, no borres archivos de `migrations/` y no edites `django_migrations` a mano. Si dos ramas tienen modelos distintos, necesitan bases distintas o un reinicio completo del esquema.
+>
+> Una vez que `check_db` diga `Base sincronizada con esta rama.`, puedes volver a `runserver`. Si vas a cambiar de rama con modelos incompatibles, repite el procedimiento o usa otra base.
 
 ### 14.9 Quiero empezar de cero mi base de datos de desarrollo
 
@@ -1467,9 +1574,10 @@ python manage.py runserver
 # Cambios en modelos
 python manage.py makemigrations
 python manage.py migrate
+python manage.py check_db            # ¿la base coincide con esta rama?
 
 # Datos de prueba (Karen) — debe reproducir el mismo escenario en cualquier máquina
-python manage.py seed_demo
+python manage.py seed_demo --reset
 
 # Shell de Django con modelos cargados
 python manage.py shell_plus        # viene de django-extensions
@@ -1487,6 +1595,7 @@ git pull
 cd postgresql && docker compose up -d && cd ..
 python -m pip install -r requirements/dev.txt
 python manage.py migrate
+python manage.py check_db
 
 # Fin de la jornada
 cd postgresql && docker compose stop && cd ..
@@ -1520,9 +1629,10 @@ python manage.py runserver
 # Cambios en modelos
 python manage.py makemigrations
 python manage.py migrate
+python manage.py check_db            # ¿la base coincide con esta rama?
 
 # Datos de prueba
-python manage.py seed_demo
+python manage.py seed_demo --reset
 
 # Shell de Django con modelos cargados
 python manage.py shell_plus
@@ -1540,6 +1650,7 @@ git pull
 Set-Location postgresql; docker compose up -d; Set-Location ..
 python -m pip install -r requirements/dev.txt
 python manage.py migrate
+python manage.py check_db
 
 # Fin de la jornada
 Set-Location postgresql; docker compose stop; Set-Location ..
