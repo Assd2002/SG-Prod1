@@ -900,6 +900,12 @@ Validación final: abrir <http://127.0.0.1:8000/admin/> e iniciar sesión.
 
 ### 9.1 Revisar que la base coincide con la rama
 
+> **Para un clon nuevo no hace falta crear una base extra.** La base personal
+> normal (§8.3) es suficiente: `migrate`, `check_db` y, si quieren demo,
+> `seed_demo --reset`. La opción de una base nueva (§14.8.1) solo aplica si la
+> base actual ya quedó con el esquema de otra rama o si quieren conservarla
+> mientras prueban una rama con modelos incompatibles.
+
 Antes de investigar un error raro, ejecuten este diagnóstico de **solo lectura** desde la raíz:
 
 ```bash

@@ -175,6 +175,12 @@ python manage.py seed_demo --archivo data/seed/demo_sgprod.json --reset
 
 ### 5.2 Revisar que la base coincide con la rama
 
+> **Si acabas de clonar el repositorio y nunca usaste otra rama, no necesitas
+> una base nueva.** Crea tu base personal normal, corre `migrate`, `seed_demo
+> --reset` y `check_db`. La base adicional es solo para quien ya tiene una base
+> contaminada por otra rama con modelos distintos, o para quien quiere conservar
+> esa base vieja mientras prueba otra rama.
+
 Antes de culpar al código, revisa el estado de la base. El siguiente comando es
 **solo lectura** y no modifica nada:
 
