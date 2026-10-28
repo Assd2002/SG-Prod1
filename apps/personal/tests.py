@@ -79,7 +79,9 @@ def test_jefe_de_linea_solo_ve_las_estaciones_de_su_linea(planta, client):
     ).content.decode()
 
     assert "Corte" in contenido
+    assert "Línea 3" in contenido
     assert "Soldadura" not in contenido
+    assert "Línea 4" not in contenido
 
 
 def test_jefe_de_linea_solo_ve_su_linea(planta, client):

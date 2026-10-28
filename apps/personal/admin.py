@@ -42,8 +42,17 @@ class EstacionAdmin(admin.ModelAdmin):
     """Consulta de estaciones por línea."""
 
     list_display = ("nombre", "linea", "orden")
-    list_filter = ("linea",)
     search_fields = ("nombre",)
+
+    def get_list_filter(self, request):
+        """El filtro por línea no se le ofrece al Jefe de Línea.
+
+        Mostrarle todas las líneas en el filtro contradice que solo ve su
+        propia línea; además solo tiene una, así que el filtro no le aporta.
+        """
+        if request.user.is_superuser:
+            return ("linea",)
+        return ()
 
     def get_queryset(self, request):
         """El Jefe de Línea solo ve las estaciones de su línea."""
