@@ -6,6 +6,7 @@ Este README sirve para tener tu ambiente local listo en unos 20 minutos. Si algo
 
 - [Guía del ambiente de desarrollo](docs/00_guia_ambiente_desarrollo.md): paso a paso, checklist y solución de problemas (§14).
 - [Alcance del proyecto](docs/01_alcance_del_proyecto.md).
+- [Guía para probar US-05](docs/02_guia_pruebas_us05.md): pruebas automáticas y verificación manual de empleados y estaciones.
 
 ---
 
@@ -242,6 +243,10 @@ Con eso, el jefe solo ve las estaciones y líneas de su grupo, y en la lista de
 empleados no le aparecen los dados de baja. Un usuario sin grupo de línea no ve
 líneas ni estaciones.
 
+El paso a paso para verificar la historia (pruebas automáticas, usuarios de
+prueba y los tres criterios de aceptación) está en la
+[guía para probar US-05](docs/02_guia_pruebas_us05.md).
+
 ---
 
 ## 6. Día a día
@@ -309,5 +314,5 @@ sgProd/
 ├── data/seed/              # dataset JSON de demo (US-04)
 ├── postgresql/             # docker-compose.yml + .env.example del contenedor
 ├── SG-Prod_diseno/         # paquete de diseño original y guía de estilo
-└── docs/                   # guía del ambiente, alcance del proyecto
+└── docs/                   # guías del ambiente, alcance y pruebas por historia
 ```
