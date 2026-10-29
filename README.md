@@ -6,6 +6,7 @@ Este README sirve para tener tu ambiente local listo en unos 20 minutos. Si algo
 
 - [Guía del ambiente de desarrollo](docs/00_guia_ambiente_desarrollo.md): paso a paso, checklist y solución de problemas (§14).
 - [Alcance del proyecto](docs/01_alcance_del_proyecto.md).
+- [Guía para probar US-05](docs/02_guia_pruebas_us05.md): pruebas automáticas y verificación manual de empleados y estaciones.
 
 ---
 
@@ -223,6 +224,29 @@ python manage.py check_db
 > No uses `migrate --fake` ni borres archivos de migración para “arreglar” esto.
 > Una base debe corresponder a una sola rama con modelos compatibles.
 
+### 5.3 Admin de personal: empleados y estaciones (US-05)
+
+El Admin de Django es la pantalla de consulta y administración de empleados y
+estaciones (RF-1.1). Un superusuario ve todas las líneas y estaciones, y la
+lista completa de empleados con su estado.
+
+Para el **Jefe de Línea**, la línea asignada se representa con un **grupo de
+Django cuyo nombre coincide exactamente con el de la línea** (`Línea 3`,
+`Línea 4`, …). US-05 no modifica el modelo, así que no hay migración de por
+medio. En el Admin:
+
+1. Crea el usuario del jefe y marca **Staff status**; otórgale los permisos de
+   consulta de empleados, estaciones y líneas.
+2. Asígnalo al grupo de su línea en *Authentication and Authorization → Groups*.
+
+Con eso, el jefe solo ve las estaciones y líneas de su grupo, y en la lista de
+empleados no le aparecen los dados de baja. Un usuario sin grupo de línea no ve
+líneas ni estaciones.
+
+El paso a paso para verificar la historia (pruebas automáticas, usuarios de
+prueba y los tres criterios de aceptación) está en la
+[guía para probar US-05](docs/02_guia_pruebas_us05.md).
+
 ---
 
 ## 6. Día a día
@@ -290,5 +314,5 @@ sgProd/
 ├── data/seed/              # dataset JSON de demo (US-04)
 ├── postgresql/             # docker-compose.yml + .env.example del contenedor
 ├── SG-Prod_diseno/         # paquete de diseño original y guía de estilo
-└── docs/                   # guía del ambiente, alcance del proyecto
+└── docs/                   # guías del ambiente, alcance y pruebas por historia
 ```
