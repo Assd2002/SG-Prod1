@@ -59,7 +59,7 @@ class Estacion(models.Model):
     nombre = models.CharField(max_length=50)
     orden = models.PositiveIntegerField()
 
-    def __str_(self):
+    def __str__(self):
         return f"{self.linea.nombre} - {self.nombre}"
 
 
